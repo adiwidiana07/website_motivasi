@@ -1,0 +1,190 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet" />
+  <title>Stay Here</title>
+</head>
+
+<body class="relative bg-white scroll-smooth px-4 sm:px-6">
+
+  <!-- BACKGROUND GLOW -->
+  <div class="fixed inset-0 -z-10 pointer-events-none">
+    <div class="absolute top-1/3 left-1/4 w-[900px] h-[900px] bg-black/10 rounded-full blur-[180px]"></div>
+    <div class="absolute top-1/4 left-1/2 w-[500px] h-[500px] bg-black/10 rounded-full blur-[140px]"></div>
+    <div class="absolute bottom-[-300px] left-1/2 -translate-x-1/2 w-[800px] h-[800px] bg-black/5 rounded-full blur-[200px]"></div>
+  </div>
+
+  <!-- NAVBAR -->
+  <nav class="fixed top-0 left-0 w-full z-50 border-b border-neutral-200 bg-white">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3 sm:py-4 flex items-center justify-between">
+
+      <!-- Brand -->
+      <div class="text-black text-sm font-medium tracking-wide">
+        Stay Here
+      </div>
+
+      <!-- Desktop Menu -->
+      <ul class="hidden md:flex items-center gap-6 lg:gap-8 text-sm">
+        <li><a href="#home" class="text-black font-medium">Home</a></li>
+        <li><a href="daily.html" class="text-black hover:text-neutral-600">Daily Words</a></li>
+        <li><a href="game.html" class="text-black hover:text-neutral-600">Game</a></li>
+        <li><a href="music.html" class="text-black hover:text-neutral-600">Music</a></li>
+      </ul>
+
+      <!-- Mobile Button -->
+      <button id="menu-btn" class="md:hidden text-xl text-black">
+        ☰
+      </button>
+    </div>
+
+    <!-- Mobile Menu -->
+    <div id="mobile-menu" class="hidden md:hidden border-t border-neutral-200 bg-white">
+      <ul class="flex flex-col px-4 sm:px-6 py-6 gap-4 text-sm">
+        <li><a href="#home" class="block text-black">Home</a></li>
+        <li><a href="daily.html" class="block text-black">Daily Words</a></li>
+        <li><a href="game.html" class="block text-black">Game</a></li>
+        <li><a href="music.html" class="block text-black">Music</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <section id="home"
+    class="pt-24 pb-20 sm:pt-28 sm:pb-24 md:pt-36 md:pb-28 lg:pt-40 lg:pb-32">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center" data-aos="fade-up">
+      <h1 class="text-3xl sm:text-4xl md:text-6xl font-semibold text-black leading-tight">
+        Stay Present.<br />Stay Here.
+      </h1>
+
+      <p class="mt-6 max-w-xl mx-auto text-neutral-600 text-sm sm:text-base">
+        A quiet place to reflect, read daily words, and reconnect
+        with yourself through simple experiences.
+      </p>
+
+      <div class="mt-10 flex flex-col sm:flex-row justify-center gap-4">
+        <a href="daily.html"
+           class="px-5 py-2.5 sm:px-6 sm:py-3 bg-black text-white rounded-full text-sm">
+          Daily Words
+        </a>
+        <a href="game.html"
+           class="px-5 py-2.5 sm:px-6 sm:py-3 border rounded-full text-sm">
+          Game
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- DAILY WORDS -->
+  <section id="daily" class="py-20 sm:py-24 md:py-28 lg:py-32">
+    <div class="max-w-3xl mx-auto px-4 sm:px-6 text-center" data-aos="fade-up">
+
+      <p class="text-xs tracking-[0.25em] uppercase text-neutral-500 mb-6">
+        A Thought for Now
+      </p>
+
+      <blockquote
+        id="daily-quote"
+        class="text-xl sm:text-2xl md:text-4xl font-serif text-neutral-900 leading-relaxed"
+      ></blockquote>
+
+      <div class="mt-10 flex justify-center">
+        <span class="w-16 h-px bg-neutral-300"></span>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section id="about" class="py-20 sm:py-24 md:py-28 lg:py-32">
+    <div class="max-w-3xl mx-auto px-4 sm:px-6 text-center" data-aos="fade-up">
+      <h2 class="text-2xl sm:text-3xl md:text-4xl font-semibold text-black mb-6">
+        About Stay Here
+      </h2>
+      <p class="text-neutral-600 text-sm sm:text-base leading-relaxed">
+        Stay Here is designed to provide a serene environment where you can take a
+        moment to pause and reflect. Whether you're looking for daily inspiration
+        or a simple game to engage your mind, Stay Here offers a variety of
+        experiences to help you reconnect with yourself.
+      </p>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 py-4 sm:py-6 text-center text-sm text-neutral-500">
+      &copy; Stay Here. All rights reserved.
+    </div>
+  </footer>
+
+  <!-- AUDIO -->
+  <audio id="bg-music"></audio>
+
+  <!-- SCRIPT -->
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+  <script>
+    AOS.init();
+
+    // mobile menu
+    const btn = document.getElementById("menu-btn");
+    const menu = document.getElementById("mobile-menu");
+    btn.addEventListener("click", () => menu.classList.toggle("hidden"));
+
+    // daily quote
+    async function loadDailyQuote() {
+      const res = await fetch("qoutes.json");
+      const quotes = await res.json();
+
+      const today = new Date().toISOString().slice(0, 10);
+      const saved = localStorage.getItem("daily-quote-date");
+
+      let index;
+      if (saved === today) {
+        index = localStorage.getItem("daily-quote-index");
+      } else {
+        index = Math.floor(Math.random() * quotes.length);
+        localStorage.setItem("daily-quote-date", today);
+        localStorage.setItem("daily-quote-index", index);
+      }
+
+      document.getElementById("daily-quote").innerText = `“${quotes[index]}”`;
+    }
+    loadDailyQuote();
+
+    // background music restore
+    const audio = document.getElementById("bg-music");
+    const src = localStorage.getItem("bg-src");
+    const time = localStorage.getItem("bg-time");
+    const playing = localStorage.getItem("bg-playing") === "true";
+
+    if (src) {
+      audio.src = src;
+      audio.loop = true;
+      audio.volume = 0.4;
+      audio.currentTime = time ? parseFloat(time) : 0;
+    }
+
+    document.addEventListener("click", () => {
+      if (playing && audio.paused) {
+        audio.play().catch(() => {});
+      }
+    }, { once: true });
+
+    audio.addEventListener("play", () => {
+      localStorage.setItem("bg-playing", "true");
+    });
+
+    audio.addEventListener("pause", () => {
+      localStorage.setItem("bg-playing", "false");
+    });
+
+    setInterval(() => {
+      if (!audio.paused) {
+        localStorage.setItem("bg-time", audio.currentTime);
+      }
+    }, 1000);
+  </script>
+</body>
+</html>
