@@ -24,7 +24,7 @@ function errorMessage(error: unknown): string {
         ? String((error as { message: unknown }).message)
         : "Something unexpected happened.";
 
-  if (/does not exist|relation .* not found/i.test(raw)) {
+  if (/PGRST205|does not exist|not find the table|relation .* not found/i.test(raw)) {
     return `${raw} — did you run supabase/schema.sql in the SQL Editor?`;
   }
   return raw;

@@ -93,10 +93,20 @@ create policy "quotes: admin deletes"
   using (true);
 
 -- ----------------------------------------------------------------------------
+-- Privileges
+--   Supabase grants these via default privileges already; stating them
+--   explicitly keeps this file self-contained everywhere else too.
+--   Row visibility is still decided by the RLS policies above.
+-- ----------------------------------------------------------------------------
+grant usage on schema public to anon, authenticated;
+grant select on table public.quotes to anon;
+grant select, insert, update, delete on table public.quotes to authenticated;
+
+-- ----------------------------------------------------------------------------
 -- Seed — only runs when the table is empty
 -- ----------------------------------------------------------------------------
 insert into public.quotes (text_en, text_id, tags)
-select *
+select text_en, text_id, tags::text[]
 from (
   values
   ('Growth is often a quiet, invisible process.', 'Pertumbuhan sering kali adalah proses yang sunyi dan tak terlihat.', '{growth}'),
