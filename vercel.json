@@ -1,0 +1,12 @@
+{
+  "redirects": [
+    { "source": "/index.html", "destination": "/", "permanent": true },
+    { "source": "/daily.html", "destination": "/daily", "permanent": true },
+    { "source": "/game.html", "destination": "/games", "permanent": true },
+    { "source": "/music.html", "destination": "/music", "permanent": true },
+    { "source": "/breathe.html", "destination": "/games/breathe", "permanent": true },
+    { "source": "/one-thought.html", "destination": "/games/one-thought", "permanent": true },
+    { "source": "/gentle-choice.html", "destination": "/games/gentle-choice", "permanent": true }
+  ],
+  "rewrites": [{ "source": "/(.*)", "destination": "/index.html" }]
+}

@@ -1,0 +1,186 @@
+@import "tailwindcss";
+
+/* ---------------------------------------------------------------------------
+   Stay Here — design tokens
+   Editorial direction: warm paper, ink text, one persimmon accent, hairlines.
+   --------------------------------------------------------------------------- */
+
+@theme {
+  --color-paper: #faf8f4;
+  --color-paper-deep: #f2eee6;
+  --color-ink: #171512;
+  --color-ink-soft: #3a362f;
+  --color-muted: #6e6a61;
+  --color-faint: #a49e91;
+  --color-hairline: #e5e0d5;
+  --color-accent: #c2410c;
+  --color-accent-deep: #9a3412;
+
+  --font-display: "Fraunces Variable", "Iowan Old Style", Georgia, serif;
+  --font-sans: "Inter Variable", ui-sans-serif, system-ui, sans-serif;
+
+  --animate-rise: rise 0.55s cubic-bezier(0.22, 1, 0.36, 1) both;
+  --animate-fade: fade 0.5s ease-out both;
+  --animate-sweep: sweep 20s linear forwards;
+
+  @keyframes rise {
+    from {
+      opacity: 0;
+      transform: translateY(12px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes fade {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+
+  @keyframes sweep {
+    from {
+      transform: scaleX(0);
+    }
+    to {
+      transform: scaleX(1);
+    }
+  }
+}
+
+@layer base {
+  html {
+    color-scheme: light;
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply bg-paper font-sans text-ink antialiased;
+  }
+
+  ::selection {
+    background: var(--color-accent);
+    color: var(--color-paper);
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--color-accent);
+    outline-offset: 2px;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
+}
+
+@layer components {
+  /* Layout shell */
+  .shell {
+    @apply mx-auto w-full max-w-6xl px-5 sm:px-8;
+  }
+
+  /* Small-caps editorial label */
+  .label {
+    @apply font-sans text-[11px] font-medium tracking-[0.2em] text-muted uppercase;
+  }
+  .label-accent::before {
+    content: "";
+    display: inline-block;
+    width: 6px;
+    height: 6px;
+    margin-right: 10px;
+    vertical-align: 1px;
+    background: var(--color-accent);
+  }
+
+  /* Hairline rule */
+  .rule {
+    @apply h-px w-full bg-hairline;
+  }
+
+  /* Buttons — sharp corners, quiet states */
+  .btn {
+    @apply inline-flex cursor-pointer items-center justify-center gap-2 px-5 py-2.5 text-sm font-medium tracking-wide transition-colors duration-200 select-none;
+    border-radius: 2px;
+  }
+  .btn-primary {
+    @apply bg-ink text-paper hover:bg-accent-deep;
+  }
+  .btn-ghost {
+    @apply border border-hairline text-ink hover:border-ink;
+  }
+  .btn-small {
+    @apply px-3 py-1.5 text-xs;
+  }
+
+  /* Inputs */
+  .input {
+    @apply w-full bg-white/70 px-3 py-2 text-sm text-ink placeholder:text-faint focus:outline-none;
+    border: 1px solid var(--color-hairline);
+    border-radius: 2px;
+  }
+  .input:focus {
+    border-color: var(--color-ink);
+  }
+
+  /* Editorial arrow link */
+  .arrow-link {
+    @apply inline-flex items-center gap-2 text-sm font-medium text-ink;
+  }
+  .arrow-link svg {
+    @apply transition-transform duration-200;
+  }
+  .arrow-link:hover svg {
+    transform: translateX(4px);
+  }
+  .arrow-link:hover {
+    color: var(--color-accent-deep);
+  }
+
+  /* Nav links */
+  .nav-link {
+    @apply text-sm text-muted transition-colors duration-200 hover:text-ink;
+    padding-bottom: 3px;
+  }
+  .nav-link-active {
+    @apply text-ink;
+    box-shadow: inset 0 -1px 0 var(--color-accent);
+  }
+
+  /* Optical sizing for display type (Fraunces opsz axis) */
+  .font-display {
+    font-variation-settings: "opsz" 50;
+  }
+  .display-hero {
+    font-variation-settings: "opsz" 144;
+    letter-spacing: -0.02em;
+  }
+
+  /* Entrance animation */
+  .reveal {
+    animation: var(--animate-rise);
+  }
+
+  /* Film grain overlay */
+  .grain {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23n)' opacity='0.55'/%3E%3C/svg%3E");
+    background-size: 140px 140px;
+    opacity: 0.05;
+    mix-blend-mode: multiply;
+  }
+}

@@ -1,0 +1,45 @@
+[build]
+  command = "npm run build"
+  publish = "dist"
+
+# Old URLs → new routes (must come before the SPA fallback)
+[[redirects]]
+  from = "/index.html"
+  to = "/"
+  status = 301
+
+[[redirects]]
+  from = "/daily.html"
+  to = "/daily"
+  status = 301
+
+[[redirects]]
+  from = "/game.html"
+  to = "/games"
+  status = 301
+
+[[redirects]]
+  from = "/music.html"
+  to = "/music"
+  status = 301
+
+[[redirects]]
+  from = "/breathe.html"
+  to = "/games/breathe"
+  status = 301
+
+[[redirects]]
+  from = "/one-thought.html"
+  to = "/games/one-thought"
+  status = 301
+
+[[redirects]]
+  from = "/gentle-choice.html"
+  to = "/games/gentle-choice"
+  status = 301
+
+# SPA fallback
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
